@@ -30,28 +30,30 @@
 set -e
 set -x
 
-: ${OPENWHISK_HOME:?"OPENWHISK_HOME must be set and non-empty"}
-WSK_CLI="$OPENWHISK_HOME/bin/wsk"
+# : ${OPENWHISK_HOME:?"OPENWHISK_HOME must be set and non-empty"}
+# WSK_CLI="$OPENWHISK_HOME/bin/wsk"
 
 
-if [ $# -ne 6 ] && [ $# -ne 8 ]; then
+if [ $# -ne 7 ] && [ $# -ne 9 ]; then
     echo "
 If the authentication information in your database contains special characters that require encoding,
 run the script in the following format:
-./installCatalog.sh <authkey> <edgehost> <apihost> <workers> <dburl> <dbprefix> <dbusername> <dbpassword>
+./installCatalog.sh <WSK_CLI> <authkey> <edgehost> <apihost> <workers> <dburl> <dbprefix> <dbusername> <dbpassword>
  Otherwise, run it in the following format:
-./installCatalog.sh <authkey> <edgehost> <apihost> <workers> <dburl> <dbprefix>"
+./installCatalog.sh <WSK_CLI> <authkey> <edgehost> <apihost> <workers> <dburl> <dbprefix>"
     exit 1
 fi
 
-AUTH="$1"
-EDGEHOST="$2"
-APIHOST="$3"
-WORKERS="$4"
-DB_URL="$5"
-DB_NAME="${6}alarmservice"
-DB_USERNAME="$7"
-DB_PASSWORD="$8"
+WSK_CLI="$1"
+
+AUTH="$2"
+EDGEHOST="$3"
+APIHOST="$4"
+WORKERS="$5"
+DB_URL="$6"
+DB_NAME="${7}alarmservice"
+DB_USERNAME="$8"
+DB_PASSWORD="$9"
 LIMIT_CRON_FIELDS="${LIMIT_CRON_FIELDS}"
 ACTION_RUNTIME_VERSION=${ACTION_RUNTIME_VERSION:="nodejs:14"}
 
